@@ -4,7 +4,6 @@ node01 ansible_host=150.136.126.161
 node02 ansible_host=129.213.36.176
 node03 ansible_host=150.136.124.110
 
-
 # Variables that will be applied to all servers
 [db:vars]
 ansible_user='opc'

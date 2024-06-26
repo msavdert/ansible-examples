@@ -1,5 +1,4 @@
 ---
-
 - name: Some examples on linux server
   hosts: all
   become: true
@@ -15,4 +14,4 @@
     - role: timezone
     - role: add-repository
     - role: etc_hosts
-
+    - role: packages
