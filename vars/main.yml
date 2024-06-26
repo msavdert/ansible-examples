@@ -1,0 +1,30 @@
+---
+## NTP ##
+ntp_enabled: true  # or 'false' if you don't want to install and configure the ntp service
+# NTP server area configuration (leave empty for 'Worldwide').
+# See: http://support.ntp.org/bin/view/Servers/NTPPoolServers
+ntp_area: ''
+ntp_servers:
+  - "0{{ '.' + ntp_area if ntp_area else '' }}.pool.ntp.org iburst"
+  - "1{{ '.' + ntp_area if ntp_area else '' }}.pool.ntp.org iburst"
+  - "2{{ '.' + ntp_area if ntp_area else '' }}.pool.ntp.org iburst"
+  - "3{{ '.' + ntp_area if ntp_area else '' }}.pool.ntp.org iburst"
+#  - "10.128.64.44"
+#  - "10.128.64.45"
+
+## TIMEZONE ##
+# timezone: ""
+# timezone: "Etc/UTC"
+timezone: "America/New_York"
+# timezone: "Europe/Moscow"
+# timezone: "Europe/Berlin"
+
+## ETC_HOSTS ##
+# /etc/hosts (optional)
+etc_hosts: []
+#  - "10.128.64.143 pgbackrest.minio.local minio.local s3.eu-west-3.amazonaws.com"  # example (MinIO)
+#  - ""
+
+## ADD-REPOSITORY ##
+install_epel_repo: true  # or 'false' (installed from the package "epel-release-latest.noarch.rpm")
+install_postgresql_repo: true  # or 'false' (installed from the package "pgdg-redhat-repo-latest.noarch.rpm")

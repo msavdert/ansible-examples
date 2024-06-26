@@ -1,0 +1,50 @@
+---
+
+- block:  # RedHat/CentOS
+    # Install Epel Repository
+    - name: Get epel-release-latest rpm package
+      ansible.builtin.get_url:
+        url: "https://dl.fedoraproject.org/pub/epel/epel-release-latest-{{ ansible_distribution_major_version }}.noarch.rpm"
+        dest: /tmp/
+        timeout: 30
+        validate_certs: false
+      when: install_epel_repo|bool
+      tags: install_epel_repo
+
+    - name: Install EPEL repository
+      ansible.builtin.package:
+        name: "/tmp/epel-release-latest-{{ ansible_distribution_major_version }}.noarch.rpm"
+        state: present
+        disable_gpg_check: true
+      register: package_status
+      until: package_status is success
+      delay: 5
+      retries: 3
+      when: install_epel_repo|bool
+      tags: install_epel_repo
+
+    # Install PostgreSQL Repository
+    - name: Get pgdg-redhat-repo-latest.noarch.rpm
+      ansible.builtin.get_url:
+        url: "https://download.postgresql.org/pub/repos/yum/reporpms/EL-{{ ansible_distribution_major_version }}-x86_64/pgdg-redhat-repo-latest.noarch.rpm"
+        dest: /tmp/
+        timeout: 30
+        validate_certs: false
+      when: install_postgresql_repo|bool
+      tags: install_postgresql_repo
+
+    - name: Install PostgreSQL repository
+      ansible.builtin.package:
+        name: /tmp/pgdg-redhat-repo-latest.noarch.rpm
+        state: present
+        disable_gpg_check: true
+      register: package_status
+      until: package_status is success
+      delay: 5
+      retries: 3
+      when: install_postgresql_repo|bool
+      tags: install_postgresql_repo
+  when: ansible_os_family == "RedHat"
+  tags: add_repo
+
+...

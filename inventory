@@ -1,0 +1,14 @@
+# Database server
+[db]
+node01 ansible_host=150.136.126.161
+node02 ansible_host=129.213.36.176
+node03 ansible_host=150.136.124.110
+
+
+# Variables that will be applied to all servers
+[db:vars]
+ansible_user='opc'
+#ansible_ssh_pass='securepassword'  # "sshpass" package is required for use "ansible_ssh_pass"
+ansible_ssh_private_key_file=./files/ansible
+#ansible_python_interpreter='/usr/bin/env python3'
+#ansible_ssh_common_args='-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null'
